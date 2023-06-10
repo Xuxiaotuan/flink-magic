@@ -16,10 +16,15 @@ public class Example {
         final StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
         // source
-        DataStream<Person> flintstones = env.fromElements(new Person("Fred", 35), new Person("Wilma", 35), new Person("Pebbles", 2));
+        DataStream<Person> flintstones = env.fromElements(
+                new Person("Fred", 35),
+                new Person("Wilma", 35),
+                new Person("Pebbles", 2)
+        );
 
         // transform
-        DataStream<Person> adults = flintstones.filter((FilterFunction<Person>) person -> person.age >= 18);
+        DataStream<Person> adults = flintstones
+                .filter((FilterFunction<Person>) person -> person.age >= 18);
 
         // sink
         adults.print();
