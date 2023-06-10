@@ -8,19 +8,17 @@ import org.apache.flink.walkthrough.common.entity.Transaction;
 import org.apache.flink.walkthrough.common.source.TransactionSource;
 
 /**
- * @author : XuJiaWei
- * @since : 2023-06-10 11:54
+ * Skeleton code for the datastream walkthrough
  */
 public class FraudDetectionJob {
-
     public static void main(String[] args) throws Exception {
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
 
-        DataStream<Transaction> transctions = env
+        DataStream<Transaction> transactions = env
                 .addSource(new TransactionSource())
                 .name("transactions");
 
-        DataStream<Alert> alerts =  transctions
+        DataStream<Alert> alerts = transactions
                 .keyBy(Transaction::getAccountId)
                 .process(new FraudDetector())
                 .name("fraud-detector");
@@ -30,8 +28,6 @@ public class FraudDetectionJob {
                 .name("send-alerts");
 
         env.execute("Fraud Detection");
-
     }
-
-
 }
+
