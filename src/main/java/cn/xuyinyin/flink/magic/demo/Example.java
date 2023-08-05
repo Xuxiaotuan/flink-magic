@@ -22,6 +22,7 @@ public class Example {
                 new Person("Pebbles", 2)
         );
 
+
         // transform
         DataStream<Person> adults = flintstones
                 .filter((FilterFunction<Person>) person -> person.age >= 18);
