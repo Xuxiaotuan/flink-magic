@@ -9,5 +9,4 @@ object MysqlCDC {
   def main(args: Array[String]): Unit = {
     println("mysql cdc")
   }
-
 }
