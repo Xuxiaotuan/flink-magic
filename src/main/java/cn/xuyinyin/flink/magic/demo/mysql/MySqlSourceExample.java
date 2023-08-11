@@ -17,7 +17,7 @@ public class MySqlSourceExample {
                 .hostname("192.168.11.62")
                 .port(3309)
                 .databaseList(".*") // 设置捕获的数据库， 如果需要同步整个数据库，请将 tableList 设置为 ".*".
-                .tableList("yourDatabaseName.yourTableName") // 设置捕获的表
+                .tableList("xxt.random_table") // 设置捕获的表
                 .username("root")
                 .password("root")
                 .scanNewlyAddedTableEnabled(true)
