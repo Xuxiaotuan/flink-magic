@@ -9,8 +9,6 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
  * @author : XuJiaWei
  * @since : 2023-08-05 14:27
  */
-
-
 public class MySqlSourceExample {
     public static void main(String[] args) throws Exception {
         MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
@@ -32,7 +30,10 @@ public class MySqlSourceExample {
         env.fromSource(mySqlSource, WatermarkStrategy.noWatermarks(), "MySQL Source")
                 // 设置 source 节点的并行度为 4
                 .setParallelism(4)
-                .print().setParallelism(1); // 设置 sink 节点并行度为 1
+                // sink为直接输出
+                .print()
+                // 设置 sink 节点并行度为 1
+                .setParallelism(1);
 
         env.execute("Print MySQL Snapshot + Binlog");
     }
