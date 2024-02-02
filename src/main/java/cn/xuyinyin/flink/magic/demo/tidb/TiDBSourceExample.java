@@ -34,15 +34,16 @@ public class TiDBSourceExample {
 
         SourceFunction<String> tidbSource =
                 TiDBSource.<String>builder()
-                        .database(database) // set captured database
-                        .tableName(tableName) // set captured table
+                        // set captured database
+                        .database(database)
+                        // set captured table
                         .tiConf(tiConfiguration)
+                        .tableName(tableName)
                         .snapshotEventDeserializer(
                                 new TiKVSnapshotEventDeserializationSchema<String>() {
                                     @Override
                                     public void deserialize(
-                                            Kvrpcpb.KvPair record, Collector<String> out)
-                                            throws Exception {
+                                            Kvrpcpb.KvPair record, Collector<String> out) {
                                         out.collect(record.toString());
                                     }
 
@@ -55,8 +56,7 @@ public class TiDBSourceExample {
                                 new TiKVChangeEventDeserializationSchema<String>() {
                                     @Override
                                     public void deserialize(
-                                            Cdcpb.Event.Row record, Collector<String> out)
-                                            throws Exception {
+                                            Cdcpb.Event.Row record, Collector<String> out) {
                                         out.collect(record.toString());
                                     }
 

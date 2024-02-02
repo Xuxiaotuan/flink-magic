@@ -11,13 +11,14 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <flink.version>1.17.1</flink.version>
+        <flink.version>1.18.0</flink.version>
         <target.java.version>1.8</target.java.version>
         <maven.compiler.source>${target.java.version}</maven.compiler.source>
         <maven.compiler.target>${target.java.version}</maven.compiler.target>
         <scala.version>2.12.8</scala.version>
         <scala.binary.version>2.12</scala.binary.version>
         <log4j.version>2.17.1</log4j.version>
+        <scala-maven-plugin.version>4.8.1</scala-maven-plugin.version>
     </properties>
 
     <repositories>
@@ -108,12 +109,12 @@
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-connector-tidb-cdc</artifactId>
-            <version>2.4.1</version>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
             <groupId>com.ververica</groupId>
             <artifactId>flink-connector-mysql-cdc</artifactId>
-            <version>2.4.1</version>
+            <version>3.0.1</version>
         </dependency>
         <!-- Add connector dependencies here. They must be in the default scope (compile). -->
 
@@ -140,7 +141,13 @@
     </dependencies>
 
     <build>
+
         <plugins>
+
+            <plugin>
+                <groupId>net.alchim31.maven</groupId>
+                <artifactId>scala-maven-plugin</artifactId>
+            </plugin>
 
             <!-- Java Compiler -->
             <plugin>
@@ -201,6 +208,29 @@
 
         <pluginManagement>
             <plugins>
+                <!--scala-->
+                <plugin>
+                    <groupId>net.alchim31.maven</groupId>
+                    <artifactId>scala-maven-plugin</artifactId>
+                    <version>${scala-maven-plugin.version}</version>
+                    <executions>
+                        <execution>
+                            <id>install-scala</id>
+                            <goals>
+                                <goal>add-source</goal>
+                                <goal>compile</goal>
+                            </goals>
+                            <phase>process-resources</phase>
+                        </execution>
+                        <execution>
+                            <id>test-compile-scala</id>
+                            <goals>
+                                <goal>testCompile</goal>
+                            </goals>
+                            <phase>test-compile</phase>
+                        </execution>
+                    </executions>
+                </plugin>
 
                 <!-- This improves the out-of-the-box experience in Eclipse by resolving some warnings. -->
                 <plugin>

@@ -12,14 +12,17 @@ import org.apache.flink.streaming.api.environment.StreamExecutionEnvironment;
 public class MySqlSourceExample {
     public static void main(String[] args) throws Exception {
         MySqlSource<String> mySqlSource = MySqlSource.<String>builder()
-                .hostname("192.168.11.62")
-                .port(3309)
-                .databaseList(".*") // 设置捕获的数据库， 如果需要同步整个数据库，请将 tableList 设置为 ".*".
-                .tableList("xxt.random_table") // 设置捕获的表
+                .hostname("100.106.104.56")
+                .port(32278)
+                // 设置捕获的数据库， 如果需要同步整个数据库，请将 tableList 设置为 ".*".
+                .databaseList(".*")
+                // 设置
+                .tableList("xxt.datetime_table")
                 .username("root")
-                .password("root")
+                .password("asd123456")
                 .scanNewlyAddedTableEnabled(true)
-                .deserializer(new JsonDebeziumDeserializationSchema()) // 将 SourceRecord 转换为 JSON 字符串
+                // 将 SourceRecord 转换为 JSON 字符串
+                .deserializer(new JsonDebeziumDeserializationSchema())
                 .build();
 
         StreamExecutionEnvironment env = StreamExecutionEnvironment.getExecutionEnvironment();
